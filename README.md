@@ -47,8 +47,9 @@ Login Succeeded
 ```
 
  - Step 4 : Get the loginServer name of the Azure Container Registry
- - 
- We need resource group `prodfix-ds-tmleng-eastus2-rg-01`
+ 
+ 
+ We need resource group `prodfix-ds-tmleng-eastus2-rg-01` to retrieve loginServer name
  
 `az acr list --resource-group prodfix-ds-tmleng-eastus2-rg-01 --query "[].{acrLoginServer:loginServer}" --output table`
 
@@ -62,15 +63,17 @@ prodfixdseus2tmlengacr01.azurecr.io
 
 
  - Step 5 : Tag the Docker images
+ 
 In order to push Docker images to Azure Container Registry, we need to tag the images with the loginServer name of the Registry and the tags are used for routing purposes
 
-In this case, we want to push `dai-func-service-bus` image to ACR
+
+In this case, we want to push `dai-func-service-bus:1.0` image to ACR and tag it to `prodfixdseus2tmlengacr01.azurecr.io/dai-func-service-bus:v1`
 
 `docker tag dai-func-service-bus:1.0 prodfixdseus2tmlengacr01.azurecr.io/dai-func-service-bus:v1 `
 
- - Step 6 : run the “docker images” command and see the output
+ - Step 6 :  List all running Docker containers again
 
-
+We will see the tagged Docker images `prodfixdseus2tmlengacr01.azurecr.io/dai-func-service-bus`
 `docker images`
 
 
@@ -116,7 +119,7 @@ v1: digest: sha256:9cdbee15989a371e8abf3c36db61753c3d4bf68622ba15d09c2ee03418c05
 
 
 
- - Step 8 : Check which Docker images are in Azure Container Registry `prodfixdseus2tmlengacr01`
+ - Step 8 : Check if Docker image `dai-func-service-bus` is in Azure Container Registry `prodfixdseus2tmlengacr01`
  
 `az acr repository list --name  prodfixdseus2tmlengacr01 --output table`
 
