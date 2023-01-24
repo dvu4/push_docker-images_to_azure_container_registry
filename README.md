@@ -136,9 +136,8 @@ dai-hdfs2adls
 dsdeploy
 ```
 
- - Step 6 : In Application (Optional), then choose Next
+ - Step 6 : Check Docker image in the Azure Container Registry `prodfixdseus2tmlengacr01`
   ![img1](./doc/1.png) 
   
-  - Step 7 : In Application (Optional), then choose Next
   ![img2](./doc/2.png) 
   
