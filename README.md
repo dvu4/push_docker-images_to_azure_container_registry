@@ -1,9 +1,5 @@
 #   Push Docker images to Azure Container Registry
 
-A Key Vault access policy determines whether a given security principal, namely a user, application or user group, can perform different operations on Key Vault secrets, keys, and certificates.
-
-Key vault supports up to 1024 access policy entries, with each entry granting a distinct set of permissions to a particular security principal.
-
 
 ##  Here are steps to  push Docker images to Azure Container Registry (ACR)
 
