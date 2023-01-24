@@ -5,19 +5,25 @@ A Key Vault access policy determines whether a given security principal, namely 
 Key vault supports up to 1024 access policy entries, with each entry granting a distinct set of permissions to a particular security principal.
 
 
-##  Here are steps to  push Docker images to Azure Container Registry
+##  Here are steps to  push Docker images to Azure Container Registry (ACR)
 
   
- - Step 1 : 
+ - Step 1 : List all running Docker images
+ 
 `docker ps`
+
+Result:
 
 ```
 CONTAINER ID   IMAGE                      COMMAND       CREATED             STATUS             PORTS     NAMES
 64d262a4d010   dai-func-service-bus:1.0   "/bin/bash"   About an hour ago   Up About an hour             awesome_burnell
 ```
 
- - Step 2 : 
+ - Step 2 : List all running Docker containers and pick the one you want to push to ACR
+ 
 `docker images`
+
+Result:
 
 ```
 REPOSITORY                    TAG       IMAGE ID       CREATED             SIZE
@@ -30,15 +36,21 @@ alpine/git                    latest    9793ee61fc75   2 months ago        43.4M
 hello-world                   latest    46331d942d63   10 months ago       9.14kB
 ```
 
- - Step 3 : 
+ - Step 3 : Login to Azure Container Registry
+ 
 `az acr login --name prodfixdseus2tmlengacr01`
+
+Result:
 
 ```
 Login Succeeded
 ```
 
- - Step 4 : figure out the loginServer name of the Azure Container Registry
+ - Step 4 : Get the loginServer name of the Azure Container Registry
+ 
 `az acr list --resource-group prodfix-ds-tmleng-eastus2-rg-01 --query "[].{acrLoginServer:loginServer}" --output table`
+
+Result:
 
 ```
 AcrLoginServer
@@ -70,6 +82,8 @@ hello-world                                                latest    46331d942d6
 
 `docker push prodfixdseus2tmlengacr01.azurecr.io/dai-func-service-bus:v1`
 
+Result:
+
 ```
 The push refers to repository [prodfixdseus2tmlengacr01.azurecr.io/dai-func-service-bus]
 d02eaeabb3c0: Pushed 
@@ -95,7 +109,10 @@ v1: digest: sha256:9cdbee15989a371e8abf3c36db61753c3d4bf68622ba15d09c2ee03418c05
 
 
  - Step 8 : Check which Docker images are in Azure Container Registry `prodfixdseus2tmlengacr01`
+ 
 `az acr repository list --name  prodfixdseus2tmlengacr01 --output table`
+
+Result:
 
 ```
 Result
@@ -111,7 +128,13 @@ dsdeploy
 ```
 
  - Step 9 : Check Docker image `dai-func-service-bus` in the Azure Container Registry `prodfixdseus2tmlengacr01`
+  
   ![img1](./doc/1.png) 
+  
   
   ![img2](./doc/2.png) 
   
+
+
+Reference:
+- https://koukia.ca/push-docker-images-to-azure-container-registry-ed21facefd0c
