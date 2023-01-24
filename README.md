@@ -5,42 +5,10 @@ A Key Vault access policy determines whether a given security principal, namely 
 Key vault supports up to 1024 access policy entries, with each entry granting a distinct set of permissions to a particular security principal.
 
 
-##  Here are steps to assign Access Policy in Key Vaults
+##  Here are steps to  push Docker images to Azure Container Registry
 
-- Step 1 : In the Azure portal, navigate to the Key Vault resource. Go to Secrets and check if you are authorized to see the secrets in the keyvault
   
-  
-  If you are unauthorized to view the secrets, move to next steps
-  ![img1](./docs/img1.png)
-
-
-- Step 2 : Go to Access Control (IAM) and view my access
-  ![img2](./docs/img2.png)
-  
-  
-   Make sure you have a contributor Role
-  ![img3](./docs/img3.png)
-  
-  
- - Step 3 : Navigate to Access Policies, select Create to assign the access policy
-  ![img4](./docs/img4.png)
-
-
- - Step 4 : In Create an access policy , choose Select All in Secret Management Operations, then Next
-  ![img5](./docs/img5.png)
-  
-  
- - Step 5 : In Principal, type `ds-aad-su`, then Next
-  ![img6](./docs/img6.png) 
-
-
- - Step 6 : In Application (Optional), then choose Next
-  ![img7](./docs/img7.png) 
-  
-  - Step 7 : Choose Create to finish Assign Access Policies
-  ![img8](./docs/img8.png) 
-  
-
+ - Step 1 : 
 `docker ps`
 
 ```
@@ -48,7 +16,7 @@ CONTAINER ID   IMAGE                      COMMAND       CREATED             STAT
 64d262a4d010   dai-func-service-bus:1.0   "/bin/bash"   About an hour ago   Up About an hour             awesome_burnell
 ```
 
-
+ - Step 2 : 
 `docker images`
 
 ```
@@ -61,13 +29,15 @@ docker101tutorial             latest    f31889622667   4 weeks ago         46.5M
 alpine/git                    latest    9793ee61fc75   2 months ago        43.4MB
 hello-world                   latest    46331d942d63   10 months ago       9.14kB
 ```
+
+ - Step 3 : 
 `az acr login --name prodfixdseus2tmlengacr01`
 
 ```
 Login Succeeded
 ```
 
-
+ - Step 4 : figure out the loginServer name of the Azure Container Registry
 `az acr list --resource-group prodfix-ds-tmleng-eastus2-rg-01 --query "[].{acrLoginServer:loginServer}" --output table`
 
 ```
@@ -77,9 +47,10 @@ prodfixdseus2tmlengacr01.azurecr.io
 ```
 
 
-
+ - Step 5 : Tag the Docker images
 `docker tag dai-func-service-bus:1.0 prodfixdseus2tmlengacr01.azurecr.io/dai-func-service-bus:v1 `
 
+ - Step 6 : run the “docker images” command and see the output
 `docker images`
 
 
@@ -94,6 +65,8 @@ docker101tutorial                                          latest    f3188962266
 alpine/git                                                 latest    9793ee61fc75   2 months ago        43.4MB
 hello-world                                                latest    46331d942d63   10 months ago       9.14kB
 ```
+
+ - Step 7 : Push Docker Images to Azure Container Registry
 
 `docker push prodfixdseus2tmlengacr01.azurecr.io/dai-func-service-bus:v1`
 
@@ -121,6 +94,7 @@ v1: digest: sha256:9cdbee15989a371e8abf3c36db61753c3d4bf68622ba15d09c2ee03418c05
 
 
 
+ - Step 8 : Check which Docker images are in Azure Container Registry `prodfixdseus2tmlengacr01`
 `az acr repository list --name  prodfixdseus2tmlengacr01 --output table`
 
 ```
@@ -136,7 +110,7 @@ dai-hdfs2adls
 dsdeploy
 ```
 
- - Step 6 : Check Docker image in the Azure Container Registry `prodfixdseus2tmlengacr01`
+ - Step 9 : Check Docker image `dai-func-service-bus` in the Azure Container Registry `prodfixdseus2tmlengacr01`
   ![img1](./doc/1.png) 
   
   ![img2](./doc/2.png) 
